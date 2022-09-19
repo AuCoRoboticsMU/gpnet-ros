@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+  <arg name="rviz"                     default="true"/>
+  <arg name="octomap"                  default="true"/>
+
+  <arg name="camera_depth"             default="/xtion/depth_registered/image_raw"  />
+  <arg name="camera_color"             default="/xtion/rgb/image_raw"  />
+  <arg name="camera_info"              default="/xtion/depth_registered/camera_info"  />
+  <arg name="camera_pc"                default="/xtion/depth_registered/points"  />
+
+  <arg name="model_name"               default="ros_gpnet.pt"/>
+  <arg name="model_dir"                default="/MODEL_DIR"  />
+
+    <!-- Node exposing service to start looking for the object and trigger the picking -->
+  <node name="grasp_client" pkg="gpnet" type="tiago_example.py" output="screen">
+      <remap from="/camera/depth_image"     to="$(arg camera_depth)"/>
+      <remap from="/camera/color_image"     to="$(arg camera_color)"/>
+      <remap from="/camera/info"            to="$(arg camera_info)"/>
+      <remap from="/camera/point_cloud"     to="$(arg camera_pc)"/>
+  </node>
+
+<!--  If you want to change the resolution, check tiago_moveit_config/launch/tiago_moveit_sensor_manager.launch.xml-->
+  <group if="$(arg octomap)">
+    <node name="throttle" pkg="topic_tools" type="throttle" output="screen"
+      args="messages $(arg camera_pc) 2 /throttle_filtering_points/filtered_points" />
+  </group>
+
+<!--    Use GPnet as the network for proposing grasps-->
+    <node name="grasp_planner" pkg="gpnet" type="grasp_planning_node.py" output="screen">
+      <param name="model_name"                     value="$(arg model_name)"     />
+      <param name="model_dir"                      value="$(arg model_dir)"  />
+    </node>
+
+  <group if="$(arg rviz)">
+      <node name="pick_grasp_rviz" pkg="rviz" type="rviz" args="-d $(find gpnet)/config/tiago_grasping.rviz"/>
+  </group>
+
+</launch>
