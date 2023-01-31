@@ -2,7 +2,7 @@
 
 This is a ROS package for GP-net to be used on mobile manipulators. It uses a 
 GP-net model to propose up to 5 grasps based on a depth image. A pre-trained model
-for a robot with a PAL parallel jaw gripper is available at [zenodo](https://zenodo.org/record/7583978).
+for a robot with a PAL parallel jaw gripper is available at [zenodo](https://zenodo.org/record/7589237).
 If you want to use GP-net for alternative grippers, you have to train a new model by
 generating a new training dataset with [the dataset generation code](https://github.com/AuCoRoboticsMU/gpnet-data) and training
 a new model with our code available on [github](https://github.com/AuCoRoboticsMU/GP-net).
@@ -36,7 +36,7 @@ An example usage script is given in `scripts/tiago_example.py`, which can be use
 `roslaunch gpnet tiago_example.launch`
 
 Note that you will have to adjust the `model_dir` in the launch file to the path were you
-your GP-net model is stored. A pretrained model is available at [zenodo](https://zenodo.org/record/7583978)
+your GP-net model is stored. A pretrained model is available at [zenodo](https://zenodo.org/record/7589237)
 
 ----------------
 If you use this code, please cite
