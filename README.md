@@ -41,7 +41,7 @@ your GP-net model is stored. A pretrained model is available at [zenodo](https:/
 ----------------
 If you use this code, please cite
 
-A. Konrad, J. McDonald and R. Villing, "Proposing Grasps for Mobile Manipulators," in review.
+A. Konrad, J. McDonald and R. Villing, "GP-Net: Flexible Viewpoint Grasp Proposal," in 21st International Conference on Advanced Robotics (ICAR), (pp. 317-324), 2023.
 
 --------
 ### Acknowledgements
